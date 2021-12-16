@@ -1,0 +1,120 @@
+1)
+array=[2,7,4,3,1,5,5]
+
+def bubble_sort(array):
+    for i in range(len(array)):
+        for j in range(len(array)-i-1):
+            if(array[j]>array[j+1]):
+                array[j],array[j+1]=array[j+1],array[j]
+    return array
+
+
+print(bubble_sort(array))
+#O(n^2)
+=====================================================
+2)
+array1=[2,4,7,1,2,8,3,9,0,5]
+print(sorted(array1))
+def count_sort(array1):
+    m=min(array1)
+    help_array=[0 for i in range(min(array1),max(array1)+1)]
+    for item in array1:
+        help_array[item-m]+=1
+    array1.clear()
+    for item in help_array:
+        [array1.append(m) for n in range(item)]
+        m+=1
+    return array1
+
+print(count_sort(array1)) 
+=====================================================
+3)
+array1,array2=[1,2,7,10],[3,4,5,6,7,8,9,10,11,12,13,14]
+
+def merge(a,b):
+    index_a,index_b=0,0
+    result=[]
+    while(index_a!= len(a) and index_b!=len(b)):
+        if(a[index_a] < b[index_b]):
+            result.append(a[index_a])
+            index_a+=1
+        else:
+            result.append(b[index_b])
+            index_b+=1
+
+    if(index_a!=len(a)):
+        result+=a[index_a:]
+    else:
+        result+=b[index_b:]
+
+    return result
+
+
+print(merge(array1,array2))
+-----------------------------------------------------
+4)
+def fib(n):
+    if(n in [1,2]):
+        return 1
+    return fib(n-1)+fib(n-2)
+
+print(fib(4))
+-----------------------------------------------------
+fib_memory={
+    1:1,
+    2:1
+}
+
+def fib(n):
+    result=fib_memory.get(n)
+    if(result is None):
+        result=fib(n-1)+fib(n-2)
+        fib_memory[n]=result
+    return result
+
+print(fib(200))
+
+-----------------------------------------------------
+
+fib_memory={
+    1:1,
+    2:1
+}
+
+def fib(n):
+    result=0
+    i=3
+    while i <=n:
+        fib_memory[i]=fib_memory[i-1]+fib_memory[i-2]
+        i+=1
+    return fib_memory[n]
+
+
+print(fib(13)) 
+
+-----------------------------------------------------
+array=[1,23,42,323,54,3,52346765,363,4645,867,53,6,23,435,7,56452,4,854,35,78,656,478,978654,342,1,687,987,4635,674,586,54635124,15,2567589,873,523412,67,6878,73152,435,768,59,65,7346]
+array=sorted(array)
+def interpol_search(a,key):
+    left=0
+    right=len(a)-1
+    res=True
+    while(a[left] < key and key < a[right]):
+        mid=midlle = left + int(((right - left)/(a[right]-a[left]))*(key - a[left]))
+        if(a[mid]<key):
+            left=mid+1
+        elif(a[mid]>key):
+            right=mid-1
+        else:
+            return mid
+
+    if(a[left]==key):
+        return left
+    elif(a[right]==key):
+        return right
+    else:
+        return -1
+
+
+ans=interpol_search(array,7)
+print(ans)
